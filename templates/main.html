@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Job Huntress</h1>
+
+<form action="/apicall", method="POST">
+    {{ form.hidden_tag() }}
+    <label for="search-terms">Keywords</label>
+    <input name="search-terms">
+    <!-- <label for="location">Location</label>
+    <input name="location">
+    <label for="radius">Radius</label>
+    <input name="radius" value="25"> -->
+    
+    <!-- need to add an if statement to check if there is a list of titles -->
+    {% if {data} %}
+        {% for {job} in {data} %}
+            <a href="{job['detail_url']}">{title}</a>
+        {% endfor %}
+    {% endif %}
+
+    <button type="submit">Search Jobs</button> 
+</form>
+{% endblock %}

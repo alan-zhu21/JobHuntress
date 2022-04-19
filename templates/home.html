@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %} Job Huntress {% endblock %}
+
+{% block content %}
+<form>
+    <button type='submit' formaction="/registration" formmethod="POST">Sign Up</button>
+    <button type='submit' formaction="'/login" formmethod="POST">Sign In</button>
+</form>
+{% endblock %}
