@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %} Login {% endblock %}
 {% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="center">
+<h1> Login </h1>
 
 <form method="POST">
 {{ form.hidden_tag() }}
@@ -18,8 +28,9 @@
   </p>
   {% endfor %}
 
-  <button type="submit">Login</button> 
+  <button type="submit" class="button-21">Login</button> 
 
 </form>
+</div>
   
 {% endblock %}

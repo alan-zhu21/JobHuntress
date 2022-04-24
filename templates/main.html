@@ -1,26 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
+
+{% for category, message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+
+<div class="center">
+    <div style="display: inline-block; text-align: left">
 <h1>Job Huntress</h1>
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-        {{ message }}
-    {% endfor %}
-    {% endif %}
-{% endwith %}
-
-<a href="/{{ session['user_id'] }}">Profile</a>
-<a href="/logout">Logout</a>
+<form>
+    <button type="submit" formaction="/{{ session['user_id'] }}" formmethod="GET" class="button-70" role="button">Profile</button>
+    <button type="submit" formaction="/logout" formmethod="GET" class="button-70" role="button">Logout</button>
+</form>
 
 <form action="/apicall", method="POST">
-    <label for="search-terms">Keywords</label>
-    <input name="search-terms">
+    <input name="search-terms" class="textbox" placeholder="Keywords">
 
 
-
-    <button type="submit">Search Jobs</button> 
+</div>
+    <button type="submit" class="button-33" role="button">Search Jobs</button> 
 </form>
+</div>
 
     <!-- need to add an if statement to check if there is a list of titles -->
     

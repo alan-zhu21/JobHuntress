@@ -38,17 +38,22 @@ def login():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
+        try:
+            username = form.username.data
+            password = form.password.data
 
-        user = User.register(username, password)
-        db.session.add(user)
-        db.session.commit()
+            user = User.register(username, password)
+            db.session.add(user)
+            db.session.commit()
 
-        session['user_id'] = user.id
-        flash('You were successfully logged in!', "success")
+            session['user_id'] = user.id
+            flash('Successfully registered!', "success")
 
-        return redirect('/main')
+            return redirect('/main')
+
+        except IntegrityError:
+            flash("Username already taken", category='danger')
+            return render_template('registration.html', form=form)
 
     else:
         return render_template('/registration.html', form=form)
@@ -68,9 +73,11 @@ def register():
 
         if user:
             session['user_id'] = user.id
+            flash("Successfully logged in!", "success")
             return redirect('/main')
         else:
-            form.username.errors = ["Invalid username/password"]
+            flash("Invalid username/password", "danger")
+            return render_template('/login.html', form=form)
 
     return render_template('/login.html', form=form)
 
@@ -101,10 +108,15 @@ def mainpage():
 
 @app.route('/<int:user_id>')
 def profilepage(user_id):
-    user = User.query.get_or_404(user_id)
-    saved_jobs = user.savedjobs
+    if session['user_id']:
+        user = User.query.get_or_404(user_id)
+        saved_jobs = user.savedjobs
 
-    return render_template('/profile.html', saved_jobs=saved_jobs, user=user)
+        return render_template('/profile.html', saved_jobs=saved_jobs, user=user)
+    else:
+        flash("Please login first.", 'danger')
+        return redirect('/')
+
 
 @app.route('/savejob')
 def savejob():
@@ -116,7 +128,7 @@ def savejob():
     new_saved_job = SavedJob(user_id=session['user_id'],title=title,company_name=company_name,location=location,description=description,url=url)
     db.session.add(new_saved_job)
     db.session.commit()
-    flash('Job Saved!')
+    flash('Job Saved!', 'success')
     return redirect("/<session['user_id']>")
 
 

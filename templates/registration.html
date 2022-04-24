@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %} Registration {% endblock %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    {% endif %}
+{% endwith %}
+
 {% block content %}
 
+<div class="center">
+<h1>Registration</h1>
 <form method="POST">
 {{ form.hidden_tag() }}
 
@@ -18,8 +27,9 @@
   </p>
   {% endfor %}
 
-  <button type="submit">Register</button> 
+  <button type="submit" class="button-21">Register</button> 
 
 </form>
+</div>
   
 {% endblock %}
