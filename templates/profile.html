@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ user.username }}</h1>
+    <h2>Saved Jobs:</h2>
+    <ul>
+    {% for job in saved_jobs %}
+        <li><a href="{{ job.url }}">{{ job.title }} for {{ job.company_name }} in {{ job.location }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

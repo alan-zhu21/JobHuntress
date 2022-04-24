@@ -12,6 +12,8 @@ def connect_db(app):
     db.init_app(app)
 
 class User(db.Model):
+    """Class for user-related functions and to reference the users table"""
+
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -39,16 +41,17 @@ class User(db.Model):
             return False
 
 
-class Skill(db.Model):
-    __tablename__ = 'skills'
+class SavedJob(db.Model):
+    """class for referencing the saved_jobs table"""
 
-    id = db.Column(db.Integer, primary_key=True)
-    skill = db.Column(db.Text, nullable=False, unique=True)
-
-
-class SelectedSkill(db.Model):
-    __tablename__ = 'surveyanswers'
+    __tablename__ = 'saved_jobs'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    skill_id = db.Column(db.Integer, db.ForeignKey('skills.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    title = db.Column(db.Text, nullable=False)
+    company_name = db.Column(db.Text, nullable=False)
+    location = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    url = db.Column(db.Text, nullable=False)
+
+    users = db.relationship('User', backref='savedjobs')
