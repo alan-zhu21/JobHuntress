@@ -129,7 +129,20 @@ def savejob():
     db.session.add(new_saved_job)
     db.session.commit()
     flash('Job Saved!', 'success')
-    return redirect("/<session['user_id']>")
+    return redirect(f"/{session['user_id']}")
+
+@app.route('/unsavejob')
+def unsavejob():
+    title = request.args.get('title')
+    company_name = request.args.get('company_name')
+    location = request.args.get('location')
+    description = request.args.get('description')
+    # url = request.args.get('url')
+    remove_job = SavedJob.query.filter_by(title=title, company_name=company_name, location=location, description=description).first()
+    db.session.delete(remove_job)
+    db.session.commit()
+    flash('Job Removed', 'success')
+    return redirect(f"/{session['user_id']}")
 
 
 API_BASE_URL = "https://job-search4.p.rapidapi.com/"
@@ -150,11 +163,10 @@ def callapi():
     }
 
     resp_linkedin = requests.request("GET", f'{API_BASE_URL}/linkedin/search', headers=headers, params=querystring)
-    # resp_monster = requests.request("GET", f'{API_BASE_URL}/monster/search', headers=headers, params=querystring)
+    resp_monster = requests.request("GET", f'{API_BASE_URL}/monster/search', headers=headers, params=querystring)
 
     global g_total_resp
-    g_total_resp = resp_linkedin.json()['jobs'] 
-    # + resp_monster.json()['jobs']
+    g_total_resp = resp_linkedin.json()['jobs'] + resp_monster.json()['jobs']
     global g_list_of_jobs
     g_list_of_jobs = [item['title'] for item in g_total_resp]
 

@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-        {{ message }}
-    {% endfor %}
-    {% endif %}
-{% endwith %}
-
 {% block content %}
     <h1>{{ user.username }}</h1>
     <h2>Saved Jobs:</h2>
     <ul>
     {% for job in saved_jobs %}
-        <li><a href="{{ job.url }}">{{ job.title }} for {{ job.company_name }} in {{ job.location }}</a></li>
+        <li>
+            <a href="{{ job.url }}">{{ job.title }} for {{ job.company_name }} in {{ job.location }}</a>
+            <a href="/unsavejob?title={{job.title}}&company_name={{job.company_name}}&location={{job.location}}&description={{job.description}}&url={{job.detail_url}}" class="button-24">Remove Job</a>
+        </li>
     {% endfor %}
+    <a href="/main">Return to Jobs</a>
     </ul>
 {% endblock %}

@@ -5,14 +5,6 @@
 {% block content %}
 
 <h1> Job Huntress </h1>
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-        {{ message }}
-    {% endfor %}
-    {% endif %}
-{% endwith %}
     
 <form>
     <button type='submit' formaction="/registration" formmethod="GET" class="button-21" role="button">Register</button>
