@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+<!-- Header
+================================================== -->
+<header class="sticky-header">
+    <div class="container">
+        <div style="
+                height: 90px;
+                width: 1500px;
+                background-color: rgba(85, 85, 85, 1);
+                position: absolute;
+                left: -80px;">
+            </div>
+        <div class="sixteen columns">
+    
+            {% include 'header.html' %}
+            
+    
+            <!-- Navigation -->
+            <div id="mobile-navigation">
+                <a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+            </div>
+    
+        </div>
+    </div>
+    </header>
+    <div class="clearfix"></div>
+
+
+<!-- Titlebar
+================================================== -->
+{% if job.id in saved_jobs %}
+<div id="titlebar">
+	<div class="container">
+		<div class="ten columns">
+			<h2>{{ job.title }} <span class="full-time">Full-Time</span></h2>
+		</div>
+
+		<div class="six columns">
+				<form action="/unsavejob/{{job.id}}" method="POST">
+					<button type="submit" class="button dark"><i class="fa fa-star"></i> Unsave This Job</button>
+				</form>
+			
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+	
+	<!-- Recent Jobs -->
+	<div class="eleven columns">
+	<div class="padding-right">
+		
+		<!-- Company Info -->
+		<div class="company-info">
+			<img src="{{ url_for('static',filename='images/suitcase-icon.jpg') }}" alt="">
+			<div class="content">
+					<h4>{{ job.company }}</h4>
+				<span><a href="{{ job.url }}"><i class="fa fa-link"></i> Website</a></span>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<p class="margin-reset">
+			{{ job.description }}
+		</p>
+
+
+	</div>
+	</div>
+
+
+	<!-- Widgets -->
+	<div class="five columns">
+
+		<!-- Sort by -->
+		<div class="widget">
+			<h4>Overview</h4>
+
+			<div class="job-overview">
+				
+				<ul>
+					<li>
+						<i class="fa fa-map-marker"></i>
+						<div>
+							<strong>Location:</strong>
+							<span>{{ job.location }}</span>
+						</div>
+					</li>
+					<li>
+						<i class="fa fa-user"></i>
+						<div>
+							<strong>Job Title:</strong>
+							<span>{{ job.title }}</span>
+						</div>
+					</li>
+					<li>
+						<i class="fa fa-clock-o"></i>
+						<div>
+							<strong>Hours:</strong>
+							<span>40h / week</span>
+						</div>
+					</li>
+				</ul>
+
+
+				<a href="#small-dialog" class="popup-with-zoom-anim button">Apply For This Job</a>
+
+				<div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
+					<div class="small-dialog-headline">
+						<h2>Apply For This Job</h2>
+					</div>
+
+					<div class="small-dialog-content">
+						<form action="{{job['redirect_url']}}" method="get" >
+							<input type="text" placeholder="Full Name" value=""/>
+							<input type="text" placeholder="Email Address" value=""/>
+							<textarea placeholder="Your message / cover letter sent to the employer"></textarea>
+
+							<!-- Upload CV -->
+							<div class="upload-info"><strong>Upload your CV (optional)</strong> <span>Max. file size: 5MB</span></div>
+							<div class="clearfix"></div>
+
+							<label class="upload-btn">
+							    <input type="file" multiple />
+							    <i class="fa fa-upload"></i> Browse
+							</label>
+							<span class="fake-input">No file selected</span>
+
+							<div class="divider"></div>
+
+							<button class="send">Send Application</button>
+						</form>
+					</div>
+					
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<!-- Widgets / End -->
+
+
+</div>
+
+{% else %}
+<div id="titlebar">
+	<div class="container">
+		<div class="ten columns">
+			<h2>{{ job.title }} <span class="full-time">Full-Time</span></h2>
+		</div>
+
+		<div class="six columns">
+				<form action="/savejob/{{job.ext_id}}" method="POST">
+					<button type="submit" class="button dark"><i class="fa fa-star"></i> Bookmark This Job</button>
+				</form>	
+				
+			</div>
+
+	</div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+	
+	<!-- Recent Jobs -->
+	<div class="eleven columns">
+	<div class="padding-right">
+		
+		<!-- Company Info -->
+		<div class="company-info">
+			<img src="{{ url_for('static',filename='images/suitcase-icon.jpg') }}" alt="">
+			<div class="content">
+				<h4>
+					{{ job.company }}</h4>
+				<span><a href="{{ job['redirect_url'] }}"><i class="fa fa-link"></i> Website</a></span>
+				<span><a href=""><i class="fa fa-twitter"></i> 
+					@{{ job.company }}
+				</a></span>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<p class="margin-reset">
+			{{ job.description }}
+		</p>
+
+
+	</div>
+	</div>
+
+
+	<!-- Widgets -->
+	<div class="five columns">
+
+		<!-- Sort by -->
+		<div class="widget">
+			<h4>Overview</h4>
+
+			<div class="job-overview">
+				
+				<ul>
+					<li>
+						<i class="fa fa-map-marker"></i>
+						<div>
+							<strong>Location:</strong>
+							<span>{{ job.location }}</span>
+						</div>
+					</li>
+					<li>
+						<i class="fa fa-user"></i>
+						<div>
+							<strong>Job Title:</strong>
+							<span>{{ job.title }}</span>
+						</div>
+					</li>
+					<li>
+						<i class="fa fa-clock-o"></i>
+						<div>
+							<strong>Hours:</strong>
+							<span>40h / week</span>
+						</div>
+					</li>
+				</ul>
+
+
+				<a href="#small-dialog" class="popup-with-zoom-anim button">Apply For This Job</a>
+
+				<div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
+					<div class="small-dialog-headline">
+						<h2>Apply For This Job</h2>
+					</div>
+
+					<div class="small-dialog-content">
+						<form action="{{job['redirect_url']}}" method="get" >
+							<input type="text" placeholder="Full Name" value=""/>
+							<input type="text" placeholder="Email Address" value=""/>
+							<textarea placeholder="Your message / cover letter sent to the employer"></textarea>
+
+							<!-- Upload CV -->
+							<div class="upload-info"><strong>Upload your CV (optional)</strong> <span>Max. file size: 5MB</span></div>
+							<div class="clearfix"></div>
+
+							<label class="upload-btn">
+							    <input type="file" multiple />
+							    <i class="fa fa-upload"></i> Browse
+							</label>
+							<span class="fake-input">No file selected</span>
+
+							<div class="divider"></div>
+
+							<button class="send">Send Application</button>
+						</form>
+					</div>
+					
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<!-- Widgets / End -->
+
+
+</div>
+{% endif %}
+
+<!-- Footer
+================================================== -->
+
+{% include 'footer.html' %}
+
+<!-- Back To Top Button -->
+<div id="backtotop"><a href="#"></a></div>
+
+</div>
+<!-- Wrapper / End -->
+
+{% endblock %}

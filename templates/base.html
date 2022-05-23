@@ -1,23 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
-    <script src="https://unpkg.com/bootstrap"></script>
-    {% block title %} {% endblock %}
+
+<!-- Basic Page Needs
+================================================== -->
+<meta charset="utf-8">
+{% block title %} {% endblock %}
+
+<!-- Mobile Specific Metas
+================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/colors.css') }}">
+
+
+
 </head>
 
-<div class="container">
-    {% for category, message in get_flashed_messages(with_categories=True) %}
+<body>
+{% for category, message in get_flashed_messages(with_categories=True) %}
     <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %}
-  
-    {% block content %}
-    {% endblock %}
-  
-</div>
+{% endfor %}
 
+{% block content %} 
+{% endblock %}
+
+<!-- Scripts
+================================================== -->
+<script src="https://unpkg.com/bootstrap"></script>
+<script src="{{ url_for('static',filename='scripts/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery-migrate-3.3.2.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/custom.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery.superfish.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery.themepunch.tools.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery.themepunch.revolution.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery.themepunch.showbizpro.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery.flexslider-min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/chosen.jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/waypoints.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery.counterup.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/jquery.jpanelmenu.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/stacktable.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/slick.min.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/headroom.min.js') }}"></script>
+{% block script %}
+
+{% endblock %}
+</body>
 </html>

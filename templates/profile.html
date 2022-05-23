@@ -1,15 +1,63 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-    <h1>{{ user.username }}</h1>
-    <h2>Saved Jobs:</h2>
-    <ul>
-    {% for job in saved_jobs %}
-        <li>
-            <a href="{{ job.url }}">{{ job.title }} for {{ job.company_name }} in {{ job.location }}</a>
-            <a href="/unsavejob?title={{job.title}}&company_name={{job.company_name}}&location={{job.location}}&description={{job.description}}&url={{job.detail_url}}" class="button-24">Remove Job</a>
-        </li>
-    {% endfor %}
-    <a href="/main">Return to Jobs</a>
-    </ul>
+
+<header class="sticky-header">
+    <div class="container">
+        <div style="
+                height: 90px;
+                width: 1500px;
+                background-color: rgba(85, 85, 85, 1);
+                position: relative;
+                left: -80px;">
+            </div>
+        <div class="sixteen columns">
+
+{% include 'header.html' %}
+
+		<div class="row">
+			<!-- Profile -->
+			<div class="col-lg-6 col-md-12">
+				<div class="dashboard-list-box margin-top-0">
+					<h4 class="gray">Profile Details</h4>
+					<div class="dashboard-list-box-static">
+						
+						<!-- Avatar -->
+						<div class="edit-profile-photo">
+							<img src="{{ url_for('static', filename= '/images/icons8-user-64.png') }}" alt="">
+							<div class="change-photo-btn">
+								<div class="photoUpload">
+								    <span><i class="fa fa-upload"></i> Upload Photo</span>
+								    <input type="file" class="upload" />
+								</div>
+							</div>
+						</div>
+	
+						<!-- Details -->
+
+                        <form action="edit-profile", method="POST">
+
+							<label>Username</label>
+							<input value="{{ user.username }}" type="text" disabled="disabled">
+
+							<label>Email</label>
+							<input name="email" value="{{ user.email }}" type="text">
+
+							<label>Linkedin URL</label>
+							<input name="linkedin_url" value="{{ user.linkedin_url }}" type="text">
+
+                            <button class="button margin-top-15">Save Changes</button>
+
+                        </form>
+
+
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+
 {% endblock %}

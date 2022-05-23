@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+<!-- Header
+================================================== -->
+<header class="sticky-header">
+    <div class="container">
+        <div style="
+                height: 90px;
+                width: 1500px;
+                background-color: rgba(85, 85, 85, 1);
+				position: relative;
+                left: -80px;">
+            </div>
+        <div class="sixteen columns">
+
+{% include 'header.html' %}
+
+
+
+<!-- Titlebar
+================================================== -->
+<div id="titlebar">
+	<div class="container">
+		<div class="ten columns">
+			<span>We found {{count}} jobs matching:</span>
+			<h2>{{category}} located {{location}}</h2>
+		</div>
+
+		<!-- <div class="six columns">
+			<a href="dashboard-add-job.html" class="button">Post a Job, It’s Free!</a>
+		</div> -->
+
+	</div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+	<!-- Recent Jobs -->
+	<div class="sixteen columns">
+	<div class="padding-right">
+
+		<div class="listings-container">
+			
+			<!-- Listing -->
+			{% for job in data %}
+			<a href="/job-details/{{job.id}}" class="listing full-time">
+				<div class="listing-logo">
+					<img src="{{ url_for('static',filename='images/suitcase-icon.jpg') }}" alt="">
+				</div>
+				<div class="listing-title">
+					<h4>{{job['title']}} <span class="listing-type">Full-Time</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> {{ job['company']['display_name'] }}</li>
+						<li><i class="ln ln-icon-Map2"></i> {{ job['location']['display_name'] }}</li>
+						</li>
+					</ul>
+				</div>
+			</a>
+			{% endfor %}
+
+		</div>
+		<div class="clearfix"></div>
+
+		<div class="pagination-container">
+			<nav class="pagination">
+				<ul>
+					<li><a href="#" class="current-page">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li class="blank">...</li>
+					<li><a href="#">22</a></li>
+				</ul>
+			</nav>
+
+			<nav class="pagination-next-prev">
+				<ul>
+					<li><a href="#" class="prev">Previous</a></li>
+					<li><a href="#" class="next">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+
+	</div>
+	</div>
+
+
+</div>
+
+
+<!-- Footer
+================================================== -->
+
+{% include 'footer.html' %}
+
+<!-- Back To Top Button -->
+<div id="backtotop"><a href="#"></a></div>
+
+</div>
+<!-- Wrapper / End -->
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

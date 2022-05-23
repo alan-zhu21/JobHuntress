@@ -1,0 +1,56 @@
+<!-- Header
+================================================== -->
+<header class="transparent sticky-header" styles="display:flex; flex-direction:column; position:relative; overflow-x:hidden;">
+	<div class="container">
+		<div class="sixteen columns">
+		
+			<!-- Logo -->
+			<div id="logo">
+				<h1><a href="/" style="background-color: #26ae61; border-radius: 4px; padding-top: 4px; padding-bottom: 2px; padding-left: 7px; padding-right: 7px;">Job Huntress</a></h1>
+			</div>
+	
+			<!-- Menu -->
+			<nav id="navigation" class="menu">
+				<ul id="responsive">
+	
+					<li><a href="#">Browse Jobs</a>
+						<ul>
+							<li><a href="/browse-categories">By Category</a></li>
+							<li><a href="/browse-locations">By Location</a></li>
+						</ul>
+					</li>
+
+					<li>
+						<a href="/contact">Contact</a>
+					</li>
+	
+				</ul>
+	
+				{% if user %}
+					<ul class="float-right">
+						<li><a href="/profile">{{user.username}}</a>
+							<ul>
+								<li><a href="/profile">My Profile</a></li>
+								<li><a href="/saved-jobs">My Saved Jobs</a></li>
+							</ul>
+						</li>
+						<li><a href="/logout"><i class="fa fa-lock"></i> Sign Out</a></li>
+					</ul>
+				{% else %}
+					<ul class="float-right">
+						<li><a href="/register"><i class="fa fa-user"></i> Sign Up</a></li>
+						<li><a href="/login"><i class="fa fa-lock"></i> Log In</a></li>
+					</ul>
+				{% endif %}
+	
+			</nav>
+	
+			<!-- Navigation -->
+			<div id="mobile-navigation">
+				<a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i></a>
+			</div>
+	
+		</div>
+	</div>
+	</header>
+	<div class="clearfix"></div>

@@ -1,0 +1,24 @@
+<!-- Categories -->
+<div class="container">
+	<div class="sixteen columns">
+		<h3 class="margin-bottom-20 margin-top-10">Popular Categories</h3>
+
+			<!-- Popular Categories -->
+			<div class="categories-boxes-container">
+				
+				<!-- Box -->
+                {% for category in categories[:8] %}
+				    <a href="" class="category-small-box">
+					    <i class="ln ln-icon-Bar-Chart"></i>
+					    <h4>{{category}}</h4>
+				    </a>
+                {% endfor %}
+			</div>
+
+		<div class="clearfix"></div>
+		<div class="margin-top-30"></div>
+
+		<a href="/browse-categories" class="button centered">Browse All Categories</a>
+		<div class="margin-bottom-55"></div>
+	</div>
+</div>
